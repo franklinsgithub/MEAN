@@ -1,7 +1,7 @@
 // BASE SETUP
 // =========================
 
-var User = require('./09-app/models/user');
+var User = require('./models/user');
 
 // CALL THE PACKAGES
 // =========================
