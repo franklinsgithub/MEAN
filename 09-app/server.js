@@ -1,6 +1,8 @@
 // BASE SETUP
 // =========================
 
+var User = require('./09-app/models/user');
+
 // CALL THE PACKAGES
 // =========================
 var express		= require('express');
