@@ -1,7 +1,6 @@
 // BASE SETUP
 // =========================
 
-var User = require('./models/user');
 
 // CALL THE PACKAGES
 // =========================
@@ -11,10 +10,10 @@ var bodyParser	= require('body-parser');
 var morgan		= require('morgan');
 var mongoose	= require('mongoose');
 var port		= process.env.PORT || 8080;
-//var User		= require('./models/user');
+var User = require('./app/models/user');
 //var jwt			= require('jsonwebtoken');
-//var superSecret	= 'ilovescotchscotchyscotchscotch';
-//mongoose.connect('mongodb://localhost:27017/localdb');
+var superSecret	= 'ilovescotchscotchyscotchscotch';
+mongoose.connect('mongodb://localhost:27017/localdb');
 
 // APP CONFIG
 // =========================
@@ -25,7 +24,7 @@ app.use(bodyParser.json());
 // configure our app to handle CORS requests
 app.use(function(req, res, next) {
 	res.setHeader('Access-Control-Allow-Origin', '*');
-	res.setHeader('Access-Control-Allow-Methods', 'GET', 'POST');
+	res.setHeader('Access-Control-Allow-Methods', 'GET, POST');
 	res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With, content-type, Authorization');
 	next();
 });
@@ -46,7 +45,7 @@ app.get('/', function(req, res) {
 var apiRouter = express.Router();
 
 //middleware to use for all requests
-apitRouter.use(function(req, res, next) {
+apiRouter.use(function(req, res, next) {
 	//do logigng
 	console.log('Somebody just came to our app!');
 	//we'll add more to the middleware in Chapter 10
@@ -87,7 +86,6 @@ apiRouter.route('/users')
 			}
 			res.json({ message: 'User created!' });
 			});
-		})
 	})
 
 // REGISTER OUR ROUTES
