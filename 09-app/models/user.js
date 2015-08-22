@@ -11,10 +11,10 @@ var UserSchema = new Schema ({
 });
 
 // hash the password before the user is saved
-UserSchema.pre('save', function(next)) {
+UserSchema.pre('save', function(next) {
 	var user = this;
 	// hash the password only if the password has been changed or user is new
-	if(!user.isModifield('password')) return next();
+	if(!user.isModified('password')) return next();
 
 	// generate the hash
 	bcrypt.hash(user.password, null, null, function(err, hash) {
