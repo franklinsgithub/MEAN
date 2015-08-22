@@ -54,6 +54,31 @@ apiRouter.get('/', function(req, res) {
 	res.json({ message: 'hooray! welcome to our api!' });
 });
 
+// on routes that end in /users
+apiRouter.route('/users')
+	// create a user (accessed at POST http://localhost:8080/api/users)
+	.post(function(req, res) {
+		// create a new instance of the User model
+		var user = new User();
+
+		// set the users info (comes from the request)
+		user.name = req.body.name;
+		user.username = req.body.username;
+		user.password = req.body.password;
+
+		// save the user and check for errors
+		user.save(function(err) {
+			if(err) {
+				// duplicate entry
+				if(err.code == 11000)
+					return res.json({ success: false, message: 'A user with that username already exists.'});
+				else
+					return res.send(err);
+			}
+			res.json({ message: 'User created!' });
+			});
+		})
+	})
 
 // REGISTER OUR ROUTES
 // all of our routes will be prefixed with /api
